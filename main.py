@@ -33,3 +33,10 @@ def cnn_model_fn(features, labels, mode):
 
     # Logits Layer
     logits = tf.keras.layers.Dense(units=10)(dropout)
+
+predictions = {
+        "classes": tf.argmax(input=logits, axis=1),
+        "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
+    }
+if mode == tf.estimator.ModeKeys.PREDICT:
+    return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
