@@ -42,3 +42,9 @@ def cnn_model_fn(features, labels, mode):
             return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
 
     loss = tf.keras.losses.sparse_categorical_crossentropy(labels, logits)
+
+    # Configure the Training Op (for TRAIN mode)
+    if mode == tf.estimator.ModeKeys.TRAIN:
+        optimizer = tf.keras.optimizers.SGD(learning_rate=0.001)
+        train_op = optimizer.minimize(loss, tf.compat.v1.train.get_or_create_global_step())
+        return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
