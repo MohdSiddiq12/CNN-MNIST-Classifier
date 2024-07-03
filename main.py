@@ -60,3 +60,7 @@ feature_columns = [tf.feature_column.numeric_column(key="x", shape=[28, 28])]
 classifier = tf.estimator.Estimator(
     model_fn=cnn_model_fn,
     model_dir="/tmp/mnist_convnet_model")
+
+# Load training and eval data
+mnist = tf.keras.datasets.mnist
+(x_train, y_train), (x_eval, y_eval) = mnist.load_data()
