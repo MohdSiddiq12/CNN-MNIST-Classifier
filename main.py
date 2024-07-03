@@ -40,3 +40,5 @@ def cnn_model_fn(features, labels, mode):
     }
     if mode == tf.estimator.ModeKeys.PREDICT:
             return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
+
+    loss = tf.keras.losses.sparse_categorical_crossentropy(labels, logits)
