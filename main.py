@@ -55,3 +55,8 @@ def cnn_model_fn(features, labels, mode):
     return tf.estimator.EstimatorSpec(mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
 feature_columns = [tf.feature_column.numeric_column(key="x", shape=[28, 28])]
+
+# Define the estimator
+classifier = tf.estimator.Estimator(
+    model_fn=cnn_model_fn,
+    model_dir="/tmp/mnist_convnet_model")
