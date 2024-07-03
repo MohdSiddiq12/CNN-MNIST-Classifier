@@ -48,3 +48,8 @@ def cnn_model_fn(features, labels, mode):
         optimizer = tf.keras.optimizers.SGD(learning_rate=0.001)
         train_op = optimizer.minimize(loss, tf.compat.v1.train.get_or_create_global_step())
         return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
+    
+    eval_metric_ops = {
+        "accuracy": tf.compat.v1.metrics.accuracy(labels=labels, predictions=predictions["classes"])
+    }
+    return tf.estimator.EstimatorSpec(mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
