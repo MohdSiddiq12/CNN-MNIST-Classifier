@@ -32,12 +32,15 @@ model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.001),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor = 'val_accuracy', patience = 3, verbose = 1)
+
 # Define training and evaluation data input functions
-train_input_fn = tf.data.Dataset.from_tensor_slices((x_train, y_train)).shuffle(60000).batch(100)#the buffer size in Dataset.shuffle(buffer_size) controls how TensorFlow shuffles the dataset by determining how many elements are randomly selected for the shuffle operation.
+train_input_fn = tf.data.Dataset.from_tensor_slices((x_train, y_train)).shuffle(60000).batch(100)#the buffer size in Dataset.shuffle(buffer_size)
+#controls how TensorFlow shuffles the dataset by determining how many elements are randomly selected for the shuffle operation.
 eval_input_fn = tf.data.Dataset.from_tensor_slices((x_eval, y_eval)).batch(100)
 
 # Train the model
-model.fit(train_input_fn, epochs=10)
+model.fit(train_input_fn, epochs=50, validation_data = train_input_fn, callbacks=[early_stopping])
 
 # Evaluate the model
 eval_result = model.evaluate(eval_input_fn)
