@@ -33,7 +33,7 @@ model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.001),
               metrics=['accuracy'])
 
 # Define training and evaluation data input functions
-train_input_fn = tf.data.Dataset.from_tensor_slices((x_train, y_train)).shuffle(60000).batch(100)
+train_input_fn = tf.data.Dataset.from_tensor_slices((x_train, y_train)).shuffle(60000).batch(100)#the buffer size in Dataset.shuffle(buffer_size) controls how TensorFlow shuffles the dataset by determining how many elements are randomly selected for the shuffle operation.
 eval_input_fn = tf.data.Dataset.from_tensor_slices((x_eval, y_eval)).batch(100)
 
 # Train the model
