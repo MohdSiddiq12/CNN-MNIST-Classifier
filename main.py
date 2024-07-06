@@ -25,6 +25,9 @@ model = tf.keras.Sequential([
 ])
 
 # Compile the model
+# Compile the model with Stochastic Gradient Descent optimizer,
+# Sparse Categorical Crossentropy loss function for integer labels,
+# and accuracy metric for evaluation.
 model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.001),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
