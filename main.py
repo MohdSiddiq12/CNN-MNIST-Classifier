@@ -4,9 +4,12 @@ import tensorflow as tf
 import numpy as np
 
 # Load training and eval data
+
 mnist = tf.keras.datasets.mnist
 (x_train, y_train), (x_eval, y_eval) = mnist.load_data()
-x_train, x_eval = x_train / 255.0, x_eval / 255.0
+x_train, x_eval = x_train / 255.0, x_eval / 255.0 #dividing input by 255 to normalize the inputs,
+#usually images range between 0 to 255, 0 being black 255 being white by dividing we scale the values between 0 and 1, 
+#so it normalizes the input which is a common practice in neural network!
 
 # Define the model using Keras Sequential API
 model = tf.keras.Sequential([
